@@ -28,6 +28,7 @@ $ ./catch_phishing.py
 ```
 $ pip install pytest
 $ PYTHONPATH=. pytest tests
+```
 
 ### Example phishing caught
 
