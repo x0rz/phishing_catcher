@@ -146,10 +146,16 @@ def callback(message, context):
             pbar.update(1)
             score = score_domain(domain)
             if score > 75:
-                tqdm.tqdm.write("\033[91mSuspicious: \033[4m%s\033[0m\033[91m (score=%s)\033[0m" % (domain, score))
+                tqdm.tqdm.write(
+                    "\033[91mSuspicious: "
+                    "\033[4m{}\033[0m\033[91m (score={})\033[0m".format(domain,
+                                                                        score))
                 with open(log_suspicious, 'a') as f:
-                    f.write("%s\n" % domain)
+                    f.write("%{}\n".format(domain))
             elif score > 65:
-                tqdm.tqdm.write("Potential: \033[4m%s\033[0m\033[0m (score=%s)" % (domain, score))
+                tqdm.tqdm.write(
+                    "Potential: "
+                    "\033[4m{}\033[0m\033[0m (score={})".format(domain, score))
+
 
 certstream.listen_for_events(callback)
