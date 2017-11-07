@@ -26,9 +26,11 @@ suspicious_keywords = [
     'log-in',
     'account',
     'verification',
+    'verify',
     'support',
     'security',
     'authentication',
+    'authenticate',
     'wallet',
     'alert',
     'purchase',
@@ -71,7 +73,12 @@ suspicious_tld = [
     '.top',
     '.support',
     '.bank',
-    '.info'
+    '.info',
+    '.study',
+    '.party',
+    '.click',
+    '.stream',
+    '.science'
     ]
 
 # store builtin print
