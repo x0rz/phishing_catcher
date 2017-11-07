@@ -1,3 +1,7 @@
-entropy==0.10
 certstream==1.7
+entropy==0.10
+python-Levenshtein==0.12.0
+six==1.11.0
+termcolor==1.1.0
 tqdm==4.19.4
+websocket-client==0.44.0

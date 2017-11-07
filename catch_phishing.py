@@ -12,6 +12,8 @@
 import certstream
 import tqdm
 
+from Levenshtein import distance
+
 import entropy
 
 log_suspicious = 'suspicious_domains.log'
@@ -35,7 +37,7 @@ suspicious_keywords = [
     'recover',
     'live',
     'office'
-    ]
+]
 
 highly_suspicious = [
     'paypal',
@@ -69,7 +71,7 @@ highly_suspicious = [
     '.gov-',
     '.gouv-',
     '-gouv-'
-    ]
+]
 
 suspicious_tld = [
     '.ga',
@@ -108,7 +110,9 @@ suspicious_tld = [
     '.party',
     '.tech',
     '.science'
-    ]
+]
+
+levenshtein_distance_threshold = 6
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
@@ -134,7 +138,12 @@ def score_domain(domain):
     for keyword in highly_suspicious:
         if keyword in domain:
             score += 60
-    score += int(round(entropy.shannon_entropy(domain)*50))
+
+    for keyword in (highly_suspicious + suspicious_keywords):
+        if distance(domain, unicode(keyword)) <= levenshtein_distance_threshold:
+            score+=1
+
+    score += int(round(entropy.shannon_entropy(domain) * 50))
 
     # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
     if 'xn--' not in domain and domain.count('-') >= 4:
