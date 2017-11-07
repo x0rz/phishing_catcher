@@ -9,12 +9,18 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-import certstream
+import os
+
 import tqdm
+import certstream
 
 import entropy
 
-log_suspicious = 'suspicious_domains.log'
+log_suspicious = 'suspicious_domains({}).log'.format(
+    len([item for item in os.listdir(os.getcwd()) if ".log" in item]) + 1
+)
+
+print("[!] log file being saved to {}\n".format(log_suspicious))
 
 suspicious_keywords = [
     'login',
@@ -35,7 +41,7 @@ suspicious_keywords = [
     'recover',
     'live',
     'office'
-    ]
+]
 
 highly_suspicious = [
     'paypal',
@@ -66,7 +72,7 @@ highly_suspicious = [
     '.gov-',
     '.gouv-',
     '-gouv-'
-    ]
+]
 
 suspicious_tld = [
     '.ga',
@@ -105,7 +111,7 @@ suspicious_tld = [
     '.party',
     '.tech',
     '.science'
-    ]
+]
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
@@ -122,15 +128,12 @@ def score_domain(domain):
         int: the score of `domain`.
     """
     score = 0
-    for tld in suspicious_tld:
-        if domain.endswith(tld):
-            score += 20
-    for keyword in suspicious_keywords:
-        if keyword in domain:
-            score += 25
-    for keyword in highly_suspicious:
-        if keyword in domain:
-            score += 60
+    if any(domain.endswith(tld) for tld in suspicious_tld):
+        score += 20
+    if any(keyword in domain for keyword in suspicious_keywords):
+        score += 25
+    if any(name in domain for name in highly_suspicious):
+        score += 60
     score += int(round(entropy.shannon_entropy(domain)*50))
 
     # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
@@ -139,7 +142,7 @@ def score_domain(domain):
     return score
 
 
-def callback(message, context):
+def callback(message, *args):
     """Callback handler for certstream events."""
     if message['message_type'] == "heartbeat":
         return
@@ -153,8 +156,7 @@ def callback(message, context):
             if score > 75:
                 tqdm.tqdm.write(
                     "\033[91mSuspicious: "
-                    "\033[4m{}\033[0m\033[91m (score={})\033[0m".format(domain,
-                                                                        score))
+                    "\033[4m{}\033[0m\033[91m (score={})\033[0m".format(domain, score))
                 with open(log_suspicious, 'a') as f:
                     f.write("{}\n".format(domain))
             elif score > 65:
