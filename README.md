@@ -8,12 +8,12 @@ This is just a working PoC, feel free to contribute and tweak the code to fit yo
 
 ### Installation
 
-Python v3 is required
+The script should work fine using Python2 or Python3.
 
 You will need the following python packages installed: tqdm, certstream, entropy
 
 ```sh
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 
