@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 # Copyright (c) 2017 @x0rz
 #
 # This program is free software: you can redistribute it and/or modify
@@ -10,14 +9,10 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
-import logging
-import sys
-import datetime
 import certstream
-import entropy
-import inspect
 import tqdm
+
+import entropy
 
 log_suspicious = 'suspicious_domains.log'
 
@@ -111,8 +106,18 @@ suspicious_tld = [
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
-# scoring function (hackish, could be better but it works so far)
+
 def score_domain(domain):
+    """Score `domain`.
+
+    The highest score, the most probable `domain` is a phishing site.
+
+    Args:
+        domain (str): the domain to check.
+
+    Returns:
+        int: the score of `domain`.
+    """
     score = 0
     for tld in suspicious_tld:
         if domain.endswith(tld):
@@ -126,11 +131,13 @@ def score_domain(domain):
     score += int(round(entropy.shannon_entropy(domain)*50))
 
     # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
-    if not 'xn--' in domain and domain.count('-') >= 4:
+    if 'xn--' not in domain and domain.count('-') >= 4:
         score += 20
     return score
 
+
 def callback(message, context):
+    """Callback handler for certstream events."""
     if message['message_type'] == "heartbeat":
         return
 
@@ -141,10 +148,16 @@ def callback(message, context):
             pbar.update(1)
             score = score_domain(domain)
             if score > 75:
-                tqdm.tqdm.write("\033[91mSuspicious: \033[4m%s\033[0m\033[91m (score=%s)\033[0m" % (domain, score))
+                tqdm.tqdm.write(
+                    "\033[91mSuspicious: "
+                    "\033[4m{}\033[0m\033[91m (score={})\033[0m".format(domain,
+                                                                        score))
                 with open(log_suspicious, 'a') as f:
-                    f.write("%s\n" % domain)
+                    f.write("%{}\n".format(domain))
             elif score > 65:
-                tqdm.tqdm.write("Potential: \033[4m%s\033[0m\033[0m (score=%s)" % (domain, score))
+                tqdm.tqdm.write(
+                    "Potential: "
+                    "\033[4m{}\033[0m\033[0m (score={})".format(domain, score))
+
 
 certstream.listen_for_events(callback)
