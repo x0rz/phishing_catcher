@@ -134,11 +134,16 @@ def score_domain(domain):
         score += 25
     if any(name in domain for name in highly_suspicious):
         score += 60
-    score += int(round(entropy.shannon_entropy(domain)*50))
+
+    # due to `any()` (idk why) this needs to be doubled
+    score += int(round(entropy.shannon_entropy(domain)*100))
 
     # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
     if 'xn--' not in domain and domain.count('-') >= 4:
         score += 20
+
+    # make up for the lack of the single point deduction to the way `any()` is working
+    score += 1
     return score
 
 
@@ -150,19 +155,19 @@ def callback(message, *args):
     if message['message_type'] == "certificate_update":
         all_domains = message['data']['leaf_cert']['all_domains']
 
-        for domain in all_domains:
-            pbar.update(1)
-            score = score_domain(domain)
-            if score > 75:
-                tqdm.tqdm.write(
-                    "\033[91mSuspicious: "
-                    "\033[4m{}\033[0m\033[91m (score={})\033[0m".format(domain, score))
-                with open(log_suspicious, 'a') as f:
+        with open(log_suspicious, 'a') as f:
+            for domain in all_domains:
+                pbar.update(1)
+                score = score_domain(domain)
+                if score > 75:
+                    tqdm.tqdm.write(
+                        "\033[91mSuspicious: "
+                        "\033[4m{}\033[0m\033[91m (score={})\033[0m".format(domain, score))
                     f.write("{}\n".format(domain))
-            elif score > 65:
-                tqdm.tqdm.write(
-                    "Potential: "
-                    "\033[4m{}\033[0m\033[0m (score={})".format(domain, score))
+                elif score > 65:
+                    tqdm.tqdm.write(
+                        "Potential: "
+                        "\033[4m{}\033[0m\033[0m (score={})".format(domain, score))
 
 
 certstream.listen_for_events(callback)
