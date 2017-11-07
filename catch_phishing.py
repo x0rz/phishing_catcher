@@ -28,6 +28,7 @@ suspicious_keywords = [
     'verification',
     'verify',
     'support',
+    'activity',
     'security',
     'authentication',
     'authenticate',
@@ -56,12 +57,13 @@ highly_suspicious = [
     'bitstamp',
     'bittrex',
     'blockchain',
-    'ethereum',
     '.com-',
     '-com.',
     '.net-',
     '.org-',
-    '.gov-'
+    '.gov-',
+    '.gouv-',
+    '-gouv-'
     ]
 
 suspicious_tld = [
@@ -82,20 +84,26 @@ suspicious_tld = [
     '.study',
     '.party',
     '.click',
+    '.country',
     '.stream',
+    '.gdn',
+    '.mom',
+    '.xin',
+    '.kim',
+    '.men',
+    '.loan',
+    '.download',
+    '.racing',
+    '.online',
+    '.ren',
+    '.gb',
+    '.win',
+    '.review',
+    '.vip',
+    '.party',
+    '.tech',
     '.science'
     ]
-
-# store builtin print
-old_print = print
-def new_print(*args, **kwargs):
-    # if tqdm.tqdm.write raises error, use builtin print
-    try:
-        tqdm.tqdm.write(*args, **kwargs)
-    except:
-        old_print(*args, ** kwargs)
-# globaly replace print with new_print
-inspect.builtins.print = new_print
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
@@ -129,10 +137,10 @@ def callback(message, context):
             pbar.update(1)
             score = score_domain(domain)
             if score > 75:
-                print("\033[91mSuspicious: \033[4m%s\033[0m\033[91m (score=%s)\033[0m" % (domain, score))
+                tqdm.tqdm.write("\033[91mSuspicious: \033[4m%s\033[0m\033[91m (score=%s)\033[0m" % (domain, score))
                 with open(log_suspicious, 'a') as f:
                     f.write("%s\n" % domain)
             elif score > 65:
-                print("Potential: \033[4m%s\033[0m\033[0m (score=%s)" % (domain, score))
+                tqdm.tqdm.write("Potential: \033[4m%s\033[0m\033[0m (score=%s)" % (domain, score))
 
 certstream.listen_for_events(callback)
