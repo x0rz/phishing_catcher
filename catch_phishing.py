@@ -163,4 +163,5 @@ def callback(message, context):
                     "\033[4m{}\033[0m\033[0m (score={})".format(domain, score))
 
 
-certstream.listen_for_events(callback)
+if __name__ == "__main__":
+    certstream.listen_for_events(callback)
