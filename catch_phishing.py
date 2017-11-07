@@ -10,8 +10,9 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 import certstream
-import entropy
 import tqdm
+
+import entropy
 
 log_suspicious = 'suspicious_domains.log'
 
