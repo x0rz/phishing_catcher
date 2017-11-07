@@ -4,7 +4,7 @@ Catching phishing using [certstream](https://certstream.calidog.io/) SSL certifi
 
 This is just a working PoC, feel free to contribute and tweak the code to fit your needs 👍
 
-![usage](blob:https://imgur.com/7d4b67f7-642c-4ffb-a60a-4dda190bf7f6)
+![usage](https://i.imgur.com/4BGuXkR.gif)
 
 ### Installation
 
