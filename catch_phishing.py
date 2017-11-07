@@ -36,6 +36,7 @@ suspicious_keywords = [
     'wallet',
     'alert',
     'purchase',
+    'transaction',
     'recover',
     'live',
     'office'
