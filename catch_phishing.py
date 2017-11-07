@@ -129,7 +129,7 @@ def score_domain(domain):
     score += int(round(entropy.shannon_entropy(domain)*50))
 
     # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
-    if not 'xn--' in domain and domain.count('-') >= 4:
+    if 'xn--' not in domain and domain.count('-') >= 4:
         score += 20
     return score
 
