@@ -11,15 +11,13 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-import logging
-import sys
-import datetime
 import certstream
 import entropy
-import inspect
 import tqdm
 
 log_suspicious = 'suspicious_domains.log'
+
+print("[!] log file being saved to %s\n" % log_suspicious)
 
 suspicious_keywords = [
     'login',
@@ -38,7 +36,7 @@ suspicious_keywords = [
     'recover',
     'live',
     'office'
-    ]
+]
 
 highly_suspicious = [
     'paypal',
@@ -64,7 +62,7 @@ highly_suspicious = [
     '.gov-',
     '.gouv-',
     '-gouv-'
-    ]
+]
 
 suspicious_tld = [
     '.ga',
@@ -103,22 +101,29 @@ suspicious_tld = [
     '.party',
     '.tech',
     '.science'
-    ]
+]
+
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
+
 
 # scoring function (hackish, could be better but it works so far)
 def score_domain(domain):
     score = 0
-    for tld in suspicious_tld:
-        if domain.endswith(tld):
-            score += 20
-    for keyword in suspicious_keywords:
-        if keyword in domain:
-            score += 25
-    for keyword in highly_suspicious:
-        if keyword in domain:
-            score += 60
+    score_list = [suspicious_tld, suspicious_keywords, highly_suspicious]
+    for i, item in enumerate(score_list):
+        if i == 0:
+            for tld in item:
+                if domain.endswith(tld):
+                    score += 20
+        elif i == 1:
+            for keyword in item:
+                if keyword in domain:
+                    score += 25
+        else:
+            for keyword in item:
+                if keyword in domain:
+                    score += 60
     score += int(round(entropy.shannon_entropy(domain)*50))
 
     # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
@@ -126,7 +131,8 @@ def score_domain(domain):
         score += 20
     return score
 
-def callback(message, context):
+
+def callback(message, content):
     if message['message_type'] == "heartbeat":
         return
 
@@ -143,4 +149,6 @@ def callback(message, context):
             elif score > 65:
                 tqdm.tqdm.write("Potential: \033[4m%s\033[0m\033[0m (score=%s)" % (domain, score))
 
-certstream.listen_for_events(callback)
+
+if __name__ == "__main__":
+    certstream.listen_for_events(callback)
