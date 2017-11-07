@@ -32,7 +32,9 @@ suspicious_keywords = [
     'wallet',
     'alert',
     'purchase',
-    'recover'
+    'recover',
+    'live',
+    'office'
     ]
 
 highly_suspicious = [
@@ -42,6 +44,7 @@ highly_suspicious = [
     'twitter',
     'appleid',
     'gmail',
+    'outlook',
     'amazon',
     'facebook',
     'cgi-bin',
@@ -49,7 +52,9 @@ highly_suspicious = [
     'icloud',
     'kraken',
     'bitstamp',
+    'bittrex',
     'blockchain',
+    'ethereum',
     '.com-',
     '-com.',
     '.net-',
