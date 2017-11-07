@@ -9,13 +9,8 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
-import logging
-import sys
-import datetime
 import certstream
 import entropy
-import inspect
 import tqdm
 
 log_suspicious = 'suspicious_domains.log'
