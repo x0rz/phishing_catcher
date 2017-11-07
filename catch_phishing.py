@@ -104,8 +104,18 @@ suspicious_tld = [
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
-# scoring function (hackish, could be better but it works so far)
+
 def score_domain(domain):
+    """Score `domain`.
+
+    The highest score, the most probable `domain` is a phishing site.
+
+    Args:
+        domain (str): the domain to check.
+
+    Returns:
+        int: the score of `domain`.
+    """
     score = 0
     for tld in suspicious_tld:
         if domain.endswith(tld):
