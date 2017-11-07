@@ -133,7 +133,9 @@ def score_domain(domain):
         score += 20
     return score
 
+
 def callback(message, context):
+    """Callback handler for certstream events."""
     if message['message_type'] == "heartbeat":
         return
 
