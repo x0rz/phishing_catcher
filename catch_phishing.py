@@ -42,6 +42,7 @@ highly_suspicious = [
     'twitter',
     'appleid',
     'gmail',
+    'amazon',
     'facebook',
     'cgi-bin',
     'localbitcoin',
@@ -86,7 +87,7 @@ inspect.builtins.print = new_print
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
-# scoring function (hackish)
+# scoring function (hackish, could be better but it works so far)
 def score_domain(domain):
     score = 0
     for tld in suspicious_tld:
@@ -100,7 +101,7 @@ def score_domain(domain):
             score += 60
     score += int(round(entropy.shannon_entropy(domain)*50))
 
-    # More than '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
+    # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
     if not 'xn--' in domain and domain.count('-') >= 4:
         score += 20
     return score

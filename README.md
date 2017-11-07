@@ -1,6 +1,6 @@
 # Phishing catcher
 
-Catching phishing using [certstream](https://certstream.calidog.io/) SSL certificates live stream.
+Catching malicious phishing domain names using [certstream](https://certstream.calidog.io/) SSL certificates live stream.
 
 This is just a working PoC, feel free to contribute and tweak the code to fit your needs 👍
 
