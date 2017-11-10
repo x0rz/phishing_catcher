@@ -81,6 +81,7 @@ def score_domain(domain):
     # Deeply nested subdomains (ie. www.paypal.com.security.accountupdate.gq)
     if domain.count('.') >= 3:
         score += domain.count('.') * 3
+
     return score
 
 
