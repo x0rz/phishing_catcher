@@ -123,4 +123,5 @@ def callback(message, context):
                     f.write("{}\n".format(domain))
 
 
-certstream.listen_for_events(callback)
+if __name__ == "__main__":
+    certstream.listen_for_events(callback)

@@ -23,6 +23,13 @@ pip install -r requirements.txt
 $ ./catch_phishing.py
 ```
 
+### Test
+
+```
+$ pip install pytest
+$ PYTHONPATH=. pytest tests
+```
+
 ### Example phishing caught
 
 ![Paypal Phishing](https://i.imgur.com/AK60EYz.png)
