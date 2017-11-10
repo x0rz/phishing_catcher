@@ -34,7 +34,10 @@ suspicious_keywords = [
     'transaction',
     'recover',
     'live',
-    'office'
+    'office',
+    'webscr',
+    'password',
+    'locked'
     ]
 
 highly_suspicious = [
@@ -48,6 +51,7 @@ highly_suspicious = [
     'protonmail',
     'amazon',
     'facebook',
+    'linkedin',
     'microsoft',
     'windows',
     'cgi-bin',
@@ -59,6 +63,11 @@ highly_suspicious = [
     'bitstamp',
     'bittrex',
     'blockchain',
+    'coinbase',
+    'gdax',
+    'poloniex',
+    'bitwage',
+    'bitfinex',
     '.com-',
     '-com.',
     '.net-',
