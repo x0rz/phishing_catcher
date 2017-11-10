@@ -136,6 +136,10 @@ def score_domain(domain):
     # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
     if 'xn--' not in domain and domain.count('-') >= 4:
         score += 20
+
+    # Deeply nested subdomains (ie. www.paypal.com.security.accountupdate.gq)
+    if domain.count('.') >= 4:
+        score += 20
     return score
 
 
