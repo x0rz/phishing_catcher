@@ -13,7 +13,7 @@ The script should work fine using Python2 or Python3.
 You will need the following python packages installed: tqdm, certstream, entropy
 
 ```sh
-pip install -r requirements.txt
+python setup.py install
 ```
 
 

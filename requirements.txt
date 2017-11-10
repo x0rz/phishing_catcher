@@ -1,3 +1,0 @@
-entropy==0.10
-certstream==1.7
-tqdm==4.19.4
