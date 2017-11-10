@@ -9,12 +9,14 @@ keywords = {
     'verify': 25,
     'webscr': 25,
     'password': 25,
+    'credential': 25,
     'support': 25,
     'activity': 25,
     'security': 25,
     'update': 25,
     'authentication': 25,
     'authenticate': 25,
+    'authorize': 25,
     'wallet': 25,
     'alert': 25,
     'purchase': 25,
@@ -31,6 +33,7 @@ keywords = {
     'customer': 10,
     'client': 10,
     'bill': 10,
+    'online': 10,
     'safe': 10,
     'form': 10,
 
@@ -110,6 +113,7 @@ keywords = {
 # Other
     'netflix': 70,
     'skype': 60,
+    'github': 60,
 
 # Miscellaneous & SE tricks
     'cgi-bin': 50,
