@@ -10,18 +10,19 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 import re
-import certstream
 import tqdm
 import entropy
+import requests
+import certstream
+from time import time
 from tld import get_tld
 from Levenshtein import distance
 from termcolor import colored, cprint
 
 from suspicious import keywords, tlds
 
-log_suspicious = 'suspicious_domains.log'
-
-pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
+log_suspicious 	= 'suspicious_domains.log'
+pbar 		= tqdm.tqdm(desc='certificate_update', unit='cert')
 
 def score_domain(domain):
     """Score `domain`.
@@ -119,8 +120,17 @@ def callback(message, context):
                     "{} (score={})".format(colored(domain, attrs=['underline']), score))
 
             if score >= 75:
+                status = check_status(domain)
                 with open(log_suspicious, 'a') as f:
-                    f.write("{}\n".format(domain))
+                    f.write("time={0} domain={1} http_status={2}\n".format(int(time()),domain,status))
 
 
+def check_status(domain):
+    try:
+        response = requests.get('http://'+domain,timeout=3.0)
+        status   = response.status_code
+    except:
+        status = 0
+    finally:
+        return status
 certstream.listen_for_events(callback)
