@@ -130,6 +130,14 @@ keywords = {
     '.gouv-': 40,
     '-gouv-': 40,
     '.gouv.': 40,
+
+# French specific
+    'impot': 90,
+    'ameli': 50,
+    'colis': 60,
+    'suivi': 50,
+    'relais': 50,
+    'laposte': 50,
 }
 
 tlds = [
