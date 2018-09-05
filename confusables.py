@@ -1823,13 +1823,12 @@ confusables = {
 }
 
 def unconfuse(domain):
-    domain = domain.decode('idna')
-    str = ''
+    unconfused = ''
     for i in range(len(domain)):
         if domain[i] in confusables:
-            str += confusables[domain[i]]
+            unconfused += confusables[domain[i]]
         else:
-            str += domain[i]
-            
-    return str
-            
+            unconfused += domain[i]
+
+    return unconfused
+

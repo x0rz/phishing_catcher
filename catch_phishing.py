@@ -52,6 +52,9 @@ def score_domain(domain):
     except Exception:
         pass
 
+    # Remove lookalike characters using list from http://www.unicode.org/reports/tr39
+    domain = unconfuse(domain)
+
     words_in_domain = re.split("\W+", domain)
 
     # Remove initial '*.' for wildcard certificates bug
@@ -60,9 +63,6 @@ def score_domain(domain):
         # ie. detect fake .com (ie. *.com-account-management.info)
         if words_in_domain[0] in ['com', 'net', 'org']:
             score += 10
-    
-    # Remove lookalike characters using list from http://www.unicode.org/reports/tr39
-    domain = unconfuse(domain)
 
     # Testing keywords
     for word in keywords.keys():
