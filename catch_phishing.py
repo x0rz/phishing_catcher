@@ -19,6 +19,8 @@ from termcolor import colored, cprint
 
 from suspicious import keywords, tlds
 
+from confusables import unconfuse
+
 log_suspicious = 'suspicious_domains.log'
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
@@ -49,6 +51,9 @@ def score_domain(domain):
         domain = '.'.join([res.subdomain, res.domain])
     except Exception:
         pass
+
+    # Remove lookalike characters using list from http://www.unicode.org/reports/tr39
+    domain = unconfuse(domain)
 
     words_in_domain = re.split("\W+", domain)
 
