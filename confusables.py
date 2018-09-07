@@ -1831,7 +1831,8 @@ confusables = {
 }
 
 def unconfuse(domain):
-    domain = domain.encode('idna').decode('idna')
+    if domain.startswith('xn--'):
+        domain = domain.encode('idna').decode('idna')
     unconfused = ''
     for i in range(len(domain)):
         if domain[i] in confusables:
