@@ -28,6 +28,7 @@ keywords = {
     'office': 15,
     'service': 15,
     'manage': 15,
+    'portal': 15,
     'invoice': 15,
     'secure': 10,
     'customer': 10,
@@ -114,6 +115,8 @@ keywords = {
     'netflix': 70,
     'skype': 60,
     'github': 60,
+    'onedrive': 60,
+    'dropbox': 60,
 
 # Miscellaneous & SE tricks
     'cgi-bin': 50,
@@ -130,6 +133,9 @@ keywords = {
     '.gouv-': 40,
     '-gouv-': 40,
     '.gouv.': 40,
+    # FR specific
+    'suivi': 50,
+    'laposte': 50,
 }
 
 tlds = [
