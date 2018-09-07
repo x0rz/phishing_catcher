@@ -176,7 +176,6 @@ confusables = {
     u'\u01CD': 'a',
     u'\u0102': 'a',
     u'\u0227': 'a',
-    u'\u00E4': 'a',
     u'\u00E5': 'a',
     u'\u0226': 'a',
     u'\u00C5': 'a',
@@ -435,7 +434,6 @@ confusables = {
     u'\u13AC': 'e',
     u'\uA4F0': 'e',
     u'\u011B': 'e',
-    u'\u00EB': 'e',
     u'\u011A': 'e',
     u'\u0247': 'e',
     u'\u0246': 'e',
@@ -639,7 +637,6 @@ confusables = {
     u'\u2139': 'i',
     u'\u2148': 'i',
     u'\u0131': 'i',
-    u'\u00EF': 'i',
     u'\u026A': 'i',
     u'\u0269': 'i',
     u'\u03B9': 'i',
@@ -653,7 +650,6 @@ confusables = {
     u'\u24DB': 'i',
     u'\u2378': 'i',
     u'\u01D0': 'i',
-    u'\u00ED': 'i',
     u'\u01CF': 'i',
     u'\u0268': 'i',
     u'\u1D7B': 'i',
@@ -1106,7 +1102,6 @@ confusables = {
     u'\uAB3D': 'o',
     u'\u03BF': 'o',
     u'\u03C3': 'o',
-    u'\u00F6': 'o',
     u'\u2C9F': 'o',
     u'\u043E': 'o',
     u'\u10FF': 'o',
@@ -1459,7 +1454,6 @@ confusables = {
     u'\u20AE': 't',
     u'\u0167': 't',
     u'\u0166': 't',
-    u'\u0165': 't',
     u'\u1D75': 't',
     u'\U0001D42E': 'u',
     u'\U0001D462': 'u',
@@ -1522,7 +1516,6 @@ confusables = {
     u'\u162E': 'u',
     u'\u1634': 'u',
     u'\u01B1': 'u',
-    u'\u00FC': 'u',
     u'\u1D7F': 'u',
     u'\u1D6B': 'ue',
     u'\uAB63': 'uo',
@@ -1767,7 +1760,6 @@ confusables = {
     u'\u024F': 'y',
     u'\u04B1': 'y',
     u'\u00A5': 'y',
-    u'\u00FF': 'y',
     u'\u024E': 'y',
     u'\u04B0': 'y',
     u'\U0001D433': 'z',
@@ -1831,7 +1823,6 @@ confusables = {
 }
 
 def unconfuse(domain):
-    domain = domain.encode('idna').decode('idna')
     unconfused = ''
     for i in range(len(domain)):
         if domain[i] in confusables:
