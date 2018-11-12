@@ -1,0 +1,14 @@
+# Change to true if you want to override suspicious.yaml
+# and only use your own config in this file.
+override_suspicious.yaml: false
+
+keywords:
+# Add your own keywords here or override the score
+# for the ones found in suspicious.yaml, e.g.:
+#    'myownkeyword': 50
+#    'appleid': 0
+
+tlds:
+# Add your own TLDs here, e.g.:
+#    '.nu':
+#    '.se':

@@ -10,14 +10,14 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 import re
+
 import certstream
-import tqdm
 import entropy
-from tld import get_tld
+import tqdm
+import yaml
 from Levenshtein import distance
 from termcolor import colored, cprint
-
-from suspicious import keywords, tlds
+from tld import get_tld
 
 from confusables import unconfuse
 
@@ -39,7 +39,7 @@ def score_domain(domain):
         int: the score of `domain`.
     """
     score = 0
-    for t in tlds:
+    for t in suspicious['tlds']:
         if domain.endswith(t):
             score += 20
 
@@ -70,12 +70,12 @@ def score_domain(domain):
             score += 10
 
     # Testing keywords
-    for word in keywords.keys():
+    for word in suspicious['keywords']:
         if word in domain:
-            score += keywords[word]
+            score += suspicious['keywords'][word]
 
     # Testing Levenshtein distance for strong keywords (>= 70 points) (ie. paypol)
-    for key in [k for (k,s) in keywords.items() if s >= 70]:
+    for key in [k for (k,s) in suspicious['keywords'].items() if s >= 70]:
         # Removing too generic keywords (ie. mail.domain.com)
         for word in [w for w in words_in_domain if w not in ['email', 'mail', 'cloud']]:
             if distance(str(word), str(key)) == 1:
@@ -131,4 +131,19 @@ def callback(message, context):
 
 
 if __name__ == '__main__':
+    with open('suspicious.yaml', 'r') as f:
+        suspicious = yaml.safe_load(f)
+
+    with open('external.yaml', 'r') as f:
+        external = yaml.safe_load(f)
+
+    if external['override_suspicious.yaml'] is True:
+        suspicious = external
+    else:
+        if external['keywords'] is not None:
+            suspicious['keywords'].update(external['keywords'])
+
+        if external['tlds'] is not None:
+            suspicious['tlds'].update(external['tlds'])
+
     certstream.listen_for_events(callback, url=certstream_url)
