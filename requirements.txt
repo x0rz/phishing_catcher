@@ -1,5 +1,5 @@
 termcolor==1.1.0
-certstream==1.8
+certstream==1.10
 entropy==0.10
 tqdm==4.19.4
 tld==0.7.9

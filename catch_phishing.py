@@ -21,6 +21,8 @@ from suspicious import keywords, tlds
 
 from confusables import unconfuse
 
+certstream_url = 'wss://certstream.calidog.io'
+
 log_suspicious = 'suspicious_domains.log'
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
@@ -129,4 +131,4 @@ def callback(message, context):
 
 
 if __name__ == '__main__':
-    certstream.listen_for_events(callback)
+    certstream.listen_for_events(callback, url=certstream_url)
