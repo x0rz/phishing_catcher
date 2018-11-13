@@ -1,0 +1,178 @@
+keywords:
+# Generic suspicious
+    'login': 25
+    'log-in': 25
+    'sign-in': 25
+    'signin': 25
+    'account': 25
+    'verification': 25
+    'verify': 25
+    'webscr': 25
+    'password': 25
+    'credential': 25
+    'support': 25
+    'activity': 25
+    'security': 25
+    'update': 25
+    'authentication': 25
+    'authenticate': 25
+    'authorize': 25
+    'wallet': 25
+    'alert': 25
+    'purchase': 25
+    'transaction': 25
+    'recover': 25
+    'unlock': 25
+    'confirm': 20
+    'live': 15
+    'office': 15
+    'service': 15
+    'manage': 15
+    'portal': 15
+    'invoice': 15
+    'secure': 10
+    'customer': 10
+    'client': 10
+    'bill': 10
+    'online': 10
+    'safe': 10
+    'form': 10
+
+# Apple iCloud
+    'appleid': 70
+    'icloud': 60
+    'iforgot': 60
+    'itunes': 50
+    'apple': 30
+
+# Email
+    'outlook': 60
+    'office365': 50
+    'microsoft': 60
+    'windows': 30
+    'protonmail': 70
+    'tutanota': 60
+    'hotmail': 60
+    'gmail': 70
+    'google': 70
+    'outlook': 60
+    'yahoo': 60
+    'google': 60
+    'yandex': 60
+
+# Social Media
+    'twitter': 60
+    'facebook': 60
+    'tumblr': 60
+    'reddit': 60
+    'youtube': 40 # some false positives
+    'linkedin': 60
+    'instagram': 60
+    'flickr': 60
+    'whatsapp': 60
+
+# Cryptocurrency
+    'localbitcoin': 70
+    'poloniex': 60
+    'coinhive': 70
+    'bithumb': 60
+    'kraken': 50 # some false positives
+    'bitstamp': 60
+    'bittrex': 60
+    'blockchain': 70
+    'bitflyer': 60
+    'coinbase': 60
+    'hitbtc': 60
+    'lakebtc': 60
+    'bitfinex': 60
+    'bitconnect': 60
+    'coinsbank': 60
+
+# Bank/money
+    'paypal': 70
+    'moneygram': 60
+    'westernunion': 60
+    'bankofamerica': 60
+    'wellsfargo': 60
+    'citigroup': 60
+    'santander': 60
+    'morganstanley': 60
+    'barclays': 50
+    'hsbc': 50
+    'scottrade': 60
+    'ameritrade': 60
+    'merilledge': 60
+    'bank': 15
+
+# Ecommerce
+    'amazon': 60
+    'overstock': 60
+    'alibaba': 60
+    'aliexpress': 60
+    'leboncoin': 70
+
+# Other
+    'netflix': 70
+    'skype': 60
+    'github': 60
+    'onedrive': 60
+    'dropbox': 60
+
+# Miscellaneous & SE tricks
+    'cgi-bin': 50
+    '.com-': 20
+    '-com.': 20
+    '.net-': 20
+    '.org-': 20
+    '.com-': 20
+    '.net.': 20
+    '.org.': 20
+    '.com.': 20
+    '.gov-': 30
+    '.gov.': 30
+    '.gouv-': 40
+    '-gouv-': 40
+    '.gouv.': 40
+    # FR specific
+    'suivi': 50
+    'laposte': 50
+
+tlds:
+    '.ga':
+    '.gq':
+    '.ml':
+    '.cf':
+    '.tk':
+    '.xyz':
+    '.pw':
+    '.cc':
+    '.club':
+    '.work':
+    '.top':
+    '.support':
+    '.bank':
+    '.info':
+    '.study':
+    '.party':
+    '.click':
+    '.country':
+    '.stream':
+    '.gdn':
+    '.mom':
+    '.xin':
+    '.kim':
+    '.men':
+    '.loan':
+    '.download':
+    '.racing':
+    '.online':
+    '.center':
+    '.ren':
+    '.gb':
+    '.win':
+    '.review':
+    '.vip':
+    '.party':
+    '.tech':
+    '.science':
+    '.business':
