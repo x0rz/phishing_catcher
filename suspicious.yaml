@@ -46,7 +46,6 @@ keywords:
     'apple': 30
 
 # Email
-    'outlook': 60
     'office365': 50
     'microsoft': 60
     'windows': 30
@@ -54,7 +53,6 @@ keywords:
     'tutanota': 60
     'hotmail': 60
     'gmail': 70
-    'google': 70
     'outlook': 60
     'yahoo': 60
     'google': 60
@@ -120,7 +118,6 @@ keywords:
 
 # Miscellaneous & SE tricks
     'cgi-bin': 50
-    '.com-': 20
     '-com.': 20
     '.net-': 20
     '.org-': 20
@@ -153,7 +150,6 @@ tlds:
     '.bank':
     '.info':
     '.study':
-    '.party':
     '.click':
     '.country':
     '.stream':
