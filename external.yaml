@@ -8,6 +8,10 @@ keywords:
 #    'myownkeyword': 50
 #    'appleid': 0
 
+# Add your own whitelisted domains to ignore
+whitelist:
+    '.composedb.com':
+
 tlds:
 # Add your own TLDs here, e.g.:
 #    '.nu':
