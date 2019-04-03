@@ -155,5 +155,8 @@ if __name__ == '__main__':
 
         if external['tlds'] is not None:
             suspicious['tlds'].update(external['tlds'])
+            
+        if external['whitelist'] is not None:
+            suspicious['whitelist'].update(external['whitelist'])
 
     certstream.listen_for_events(callback, url=certstream_url)
