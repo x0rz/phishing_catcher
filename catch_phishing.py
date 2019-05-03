@@ -25,7 +25,7 @@ certstream_url = 'wss://certstream.calidog.io'
 
 log_suspicious = 'suspicious_domains.log'
 
-pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
+pbar = tqdm.tqdm(desc='certificate_update', unit='domains')
 
 def score_domain(domain):
     """Score `domain`.
