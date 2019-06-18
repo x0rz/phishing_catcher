@@ -27,6 +27,7 @@ log_suspicious = 'suspicious_domains.log'
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
+
 def score_domain(domain):
     """Score `domain`.
 
@@ -55,12 +56,12 @@ def score_domain(domain):
         pass
 
     # Higer entropy is kind of suspicious
-    score += int(round(entropy.shannon_entropy(domain)*50))
+    score += int(round(entropy.shannon_entropy(domain) * 50))
 
     # Remove lookalike characters using list from http://www.unicode.org/reports/tr39
     domain = unconfuse(domain)
 
-    words_in_domain = re.split("\W+", domain)
+    words_in_domain = re.split("\\W+", domain)
 
     # Remove initial '*.' for wildcard certificates bug
     if domain.startswith('*.'):
@@ -75,18 +76,18 @@ def score_domain(domain):
             score += suspicious['keywords'][word]
 
     # Testing Levenshtein distance for strong keywords (>= 70 points) (ie. paypol)
-    for key in [k for (k,s) in suspicious['keywords'].items() if s >= 70]:
+    for key in [k for (k, s) in suspicious['keywords'].items() if s >= 70]:
         # Removing too generic keywords (ie. mail.domain.com)
         for word in [w for w in words_in_domain if w not in ['email', 'mail', 'cloud']]:
             if distance(str(word), str(key)) == 1:
                 score += 70
 
     # Lots of '-' (ie. www.paypal-datacenter.com-acccount-alert.com)
-    if 'xn--' not in domain and domain.count('-') >= 4:
+    if dashes_are_suspect and 'xn--' not in domain and domain.count('-') >= 4:
         score += domain.count('-') * 3
 
     # Deeply nested subdomains (ie. www.paypal.com.security.accountupdate.gq)
-    if domain.count('.') >= 3:
+    if dots_are_suspect and domain.count('.') >= 3:
         score += domain.count('.') * 3
 
     return score
@@ -146,4 +147,8 @@ if __name__ == '__main__':
         if external['tlds'] is not None:
             suspicious['tlds'].update(external['tlds'])
 
+    dots_are_suspect = external.get('dots_are_suspect', True)
+    dashes_are_suspect = external.get('dashes_are_suspect', True)
+
     certstream.listen_for_events(callback, url=certstream_url)
+

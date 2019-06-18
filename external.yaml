@@ -2,6 +2,9 @@
 # and only use your own config in this file.
 override_suspicious.yaml: false
 
+# If true, larger numbers of dots (or dashes) will increase score.
+dots_are_suspect: true
+dashes_are_suspect: true
 keywords:
 # Add your own keywords here or override the score
 # for the ones found in suspicious.yaml, e.g.:
