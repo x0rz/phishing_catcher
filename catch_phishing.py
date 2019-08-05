@@ -15,6 +15,8 @@ import certstream
 import entropy
 import tqdm
 import yaml
+import time
+import os
 from Levenshtein import distance
 from termcolor import colored, cprint
 from tld import get_tld
