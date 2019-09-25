@@ -62,12 +62,9 @@ def score_domain(domain):
 
     words_in_domain = re.split("\W+", domain)
 
-    # Remove initial '*.' for wildcard certificates bug
-    if domain.startswith('*.'):
-        domain = domain[2:]
-        # ie. detect fake .com (ie. *.com-account-management.info)
-        if words_in_domain[0] in ['com', 'net', 'org']:
-            score += 10
+    # ie. detect fake .com (ie. *.com-account-management.info)
+    if words_in_domain[0] in ['com', 'net', 'org']:
+        score += 10
 
     # Testing keywords
     for word in suspicious['keywords']:
