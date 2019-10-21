@@ -15,6 +15,8 @@ import certstream
 import entropy
 import tqdm
 import yaml
+import time
+import os
 from Levenshtein import distance
 from termcolor import colored, cprint
 from tld import get_tld
@@ -23,7 +25,11 @@ from confusables import unconfuse
 
 certstream_url = 'wss://certstream.calidog.io'
 
-log_suspicious = 'suspicious_domains.log'
+log_suspicious = os.path.dirname(os.path.realpath(__file__))+'/suspicious_domains_'+time.strftime("%Y-%m-%d")+'.log'
+
+suspicious_yaml = os.path.dirname(os.path.realpath(__file__))+'/suspicious.yaml'
+
+external_yaml = os.path.dirname(os.path.realpath(__file__))+'/external.yaml'
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
@@ -128,10 +134,10 @@ def callback(message, context):
 
 
 if __name__ == '__main__':
-    with open('suspicious.yaml', 'r') as f:
+    with open(suspicious_yaml, 'r') as f:
         suspicious = yaml.safe_load(f)
 
-    with open('external.yaml', 'r') as f:
+    with open(external_yaml, 'r') as f:
         external = yaml.safe_load(f)
 
     if external['override_suspicious.yaml'] is True:
