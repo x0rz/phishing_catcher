@@ -768,6 +768,7 @@ confusables = {
     u'\uABB6': 'k',
     u'\u049B': 'k',
     u'\u049F': 'k',
+    u'\u1E33': 'k',
     u'\U00010320': 'l',
     u'\U0001E8C7': 'l',
     u'\U0001D7CF': 'l',
@@ -1823,7 +1824,7 @@ confusables = {
 }
 
 def unconfuse(domain):
-    if domain.startswith('xn--'):
+    if domain.startswith('xn--') or domain.find('xn--'):
         domain = domain.encode('idna').decode('idna')
     unconfused = ''
     for i in range(len(domain)):
