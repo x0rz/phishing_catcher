@@ -2,7 +2,7 @@
 
 Catch possible phishing domains in near real time by looking for suspicious TLS certificate issuances reported to the [Certificate Transparency Log (CTL)](https://www.certificate-transparency.org/) via the [CertStream](https://certstream.calidog.io/) API. "Suspicious" issuances are those whose domain name scores beyond a certain threshold based on a configuration file.
 
-This is just a working PoC, feel free to contribute and tweak the code to fit your needs 👍
+This is just a working PoC. Feel free to contribute and tweak the code to fit your needs. 👍
 
 ![Screencast of example usage.](https://i.imgur.com/4BGuXkR.gif)
 
@@ -16,9 +16,9 @@ pip install -r requirements.txt
 
 ### Configuration
 
-Phishing Catcher uses a simple YAML configuration file to assign a numeric score for strings that can be found in a TLS certificate's common name or SAN field (i.e., a cert's domain name). The configuration file, [`suspicious.yaml`](suspicious.yaml) ships with sensible defaults, but you can adjust or add both the strings it contains and the score assigned to each string by editing the file.
+Phishing Catcher uses a simple YAML configuration file to assign a numeric score for strings that can be found in a TLS certificate's common name or SAN field (i.e., a cert's domain name). The configuration file, [`suspicious.yaml`](suspicious.yaml), ships with sensible defaults, but you can adjust or add to both the strings it contains and the score assigned to each string by editing an override file, [`external.yaml`](external.yaml).
 
-The configuration file contains two YAML dictionaries: `keywords` and `tlds`. The keys of the dictionaries are the strings and the values are the scores to assign if that string is found in the domain name for an issued certificate. For example:
+Both the default `suspicious.yaml` and the user-modifiable `external.yaml` configuration files contain two YAML dictionaries: `keywords` and `tlds`. The keys of the dictionaries are the strings and the values are the scores to assign if that string is found in the domain name for an issued certificate. For example:
 
 ```yaml
 keywords:
