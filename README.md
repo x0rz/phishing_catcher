@@ -49,6 +49,15 @@ $ ./catch_phishing.py
 
 ![Paypal Phishing](https://i.imgur.com/AK60EYz.png)
 
+### Phishing catcher in Docker container
+
+If you running MacOs or having a different OS version that would make the installation of phishing_catcher difficult, then having the tool dockerized is one of your options.
+
+```
+docker build . -t phishing_catcher
+```
+![container](https://i.imgur.com/nEo13PH.jpg)
+
 # License
 
 GNU GPLv3
