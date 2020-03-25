@@ -10,9 +10,9 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 import re
+import math
 
 import certstream
-import entropy
 import tqdm
 import yaml
 import time
@@ -32,6 +32,12 @@ suspicious_yaml = os.path.dirname(os.path.realpath(__file__))+'/suspicious.yaml'
 external_yaml = os.path.dirname(os.path.realpath(__file__))+'/external.yaml'
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
+
+def entropy(string):
+    """Calculates the Shannon entropy of a string"""
+    prob = [ float(string.count(c)) / len(string) for c in dict.fromkeys(list(string)) ]
+    entropy = - sum([ p * math.log(p) / math.log(2.0) for p in prob ])
+    return entropy
 
 def score_domain(domain):
     """Score `domain`.
@@ -61,7 +67,7 @@ def score_domain(domain):
         pass
 
     # Higer entropy is kind of suspicious
-    score += int(round(entropy.shannon_entropy(domain)*50))
+    score += int(round(entropy(domain)*10))
 
     # Remove lookalike characters using list from http://www.unicode.org/reports/tr39
     domain = unconfuse(domain)
