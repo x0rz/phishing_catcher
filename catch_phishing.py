@@ -31,7 +31,7 @@ suspicious_yaml = os.path.dirname(os.path.realpath(__file__))+'/suspicious.yaml'
 
 external_yaml = os.path.dirname(os.path.realpath(__file__))+'/external.yaml'
 
-pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
+pbar = tqdm.tqdm(desc='certificate_update', unit='domains')
 
 def entropy(string):
     """Calculates the Shannon entropy of a string"""
