@@ -22,6 +22,7 @@ from termcolor import colored, cprint
 from tld import get_tld
 
 from confusables import unconfuse
+import argparse
 
 certstream_url = 'wss://certstream.calidog.io'
 
@@ -31,7 +32,7 @@ suspicious_yaml = os.path.dirname(os.path.realpath(__file__))+'/suspicious.yaml'
 
 external_yaml = os.path.dirname(os.path.realpath(__file__))+'/external.yaml'
 
-pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
+pbar = tqdm.tqdm(desc='certificate_update', unit='cert', disable=True)
 
 def entropy(string):
     """Calculates the Shannon entropy of a string"""
@@ -140,6 +141,10 @@ def callback(message, context):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=None, formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument('-s', '--simulate', default=None, help="Simulate by getting domain from a file instead of the certstream server. Default: None")
+    args = parser.parse_args()
+
     with open(suspicious_yaml, 'r') as f:
         suspicious = yaml.safe_load(f)
 
@@ -155,4 +160,13 @@ if __name__ == '__main__':
         if external['tlds'] is not None:
             suspicious['tlds'].update(external['tlds'])
 
-    certstream.listen_for_events(callback, url=certstream_url)
+    if not args.simulate:
+        pbar = tqdm.tqdm(desc='certificate_update', unit='cert') # overwrite global muted pbar with a verbose one
+        certstream.listen_for_events(callback, url=certstream_url)
+    else:
+        with open(args.simulate) as f:
+            domains = [e.strip() for e in f.readlines()]
+        fake_message = {'data': {'leaf_cert': {'all_domains': domains,
+                                               'issuer': {'O': ['Fake Issuer Org'] }}},
+                        'message_type': 'certificate_update'}
+        callback(fake_message, None)
