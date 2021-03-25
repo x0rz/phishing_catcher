@@ -4,4 +4,4 @@ tqdm==4.19.4
 tld==0.7.9
 python_Levenshtein==0.12.0
 websocket-client==0.48.0
-PyYAML==5.1
+PyYAML==5.4
