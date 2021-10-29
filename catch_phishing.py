@@ -116,6 +116,9 @@ def callback(message, context):
             # If issued from a free CA = more suspicious
             if "Let's Encrypt" == message['data']['leaf_cert']['issuer']['O']:
                 score += 10
+                
+            if "ZeroSSL" == message['data']['leaf_cert']['issuer']['O']:
+                score += 10
 
             if score >= 100:
                 tqdm.tqdm.write(
