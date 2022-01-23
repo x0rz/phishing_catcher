@@ -69,6 +69,15 @@ keywords:
     'flickr': 60
     'whatsapp': 60
 
+# Instagram
+    'verified':60
+    'telifhakki':60
+    'copyright-support': 60
+    'ihlali':60
+    'copyright':60
+    'verified-badge':60
+    'account-support':60
+    
 # Cryptocurrency
     'localbitcoin': 70
     'poloniex': 60
