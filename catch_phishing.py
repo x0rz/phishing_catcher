@@ -13,6 +13,7 @@ import re
 import math
 
 import certstream
+import contextlib
 import tqdm
 import yaml
 import time
@@ -25,19 +26,25 @@ from confusables import unconfuse
 
 certstream_url = 'wss://certstream.calidog.io'
 
-log_suspicious = os.path.dirname(os.path.realpath(__file__))+'/suspicious_domains_'+time.strftime("%Y-%m-%d")+'.log'
+log_suspicious = (
+                         f'{os.path.dirname(os.path.realpath(__file__))}/suspicious_domains_'
+                         + time.strftime("%Y-%m-%d")
+                 ) + '.log'
 
-suspicious_yaml = os.path.dirname(os.path.realpath(__file__))+'/suspicious.yaml'
+suspicious_yaml = (
+    f'{os.path.dirname(os.path.realpath(__file__))}/suspicious.yaml'
+)
 
-external_yaml = os.path.dirname(os.path.realpath(__file__))+'/external.yaml'
+external_yaml = f'{os.path.dirname(os.path.realpath(__file__))}/external.yaml'
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
+
 def entropy(string):
     """Calculates the Shannon entropy of a string"""
-    prob = [ float(string.count(c)) / len(string) for c in dict.fromkeys(list(string)) ]
-    entropy = - sum([ p * math.log(p) / math.log(2.0) for p in prob ])
-    return entropy
+    prob = [float(string.count(c)) / len(string) for c in dict.fromkeys(list(string))]
+    return -sum(p * math.log(p) / math.log(2.0) for p in prob)
+
 
 def score_domain(domain):
     """Score `domain`.
@@ -50,24 +57,17 @@ def score_domain(domain):
     Returns:
         int: the score of `domain`.
     """
-    score = 0
-    for t in suspicious['tlds']:
-        if domain.endswith(t):
-            score += 20
-
+    score = sum(20 for t in suspicious['tlds'] if domain.endswith(t))
     # Remove initial '*.' for wildcard certificates bug
     if domain.startswith('*.'):
         domain = domain[2:]
 
     # Removing TLD to catch inner TLD in subdomain (ie. paypal.com.domain.com)
-    try:
+    with contextlib.suppress(Exception):
         res = get_tld(domain, as_object=True, fail_silently=True, fix_protocol=True)
         domain = '.'.join([res.subdomain, res.domain])
-    except Exception:
-        pass
-
     # Higer entropy is kind of suspicious
-    score += int(round(entropy(domain)*10))
+    score += int(round(entropy(domain) * 10))
 
     # Remove lookalike characters using list from http://www.unicode.org/reports/tr39
     domain = unconfuse(domain)
@@ -84,7 +84,7 @@ def score_domain(domain):
             score += suspicious['keywords'][word]
 
     # Testing Levenshtein distance for strong keywords (>= 70 points) (ie. paypol)
-    for key in [k for (k,s) in suspicious['keywords'].items() if s >= 70]:
+    for key in [k for (k, s) in suspicious['keywords'].items() if s >= 70]:
         # Removing too generic keywords (ie. mail.domain.com)
         for word in [w for w in words_in_domain if w not in ['email', 'mail', 'cloud']]:
             if distance(str(word), str(key)) == 1:
@@ -114,7 +114,7 @@ def callback(message, context):
             score = score_domain(domain.lower())
 
             # If issued from a free CA = more suspicious
-            if "Let's Encrypt" == message['data']['leaf_cert']['issuer']['O']:
+            if message['data']['leaf_cert']['issuer']['O'] == "Let's Encrypt":
                 score += 10
 
             if score >= 100:
@@ -136,7 +136,7 @@ def callback(message, context):
 
             if score >= 75:
                 with open(log_suspicious, 'a') as f:
-                    f.write("{}\n".format(domain))
+                    f.write(f"{domain}\n")
 
 
 if __name__ == '__main__':
