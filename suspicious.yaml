@@ -172,3 +172,9 @@ tlds:
     '.tech':
     '.science':
     '.business':
+
+ignore_domains:
+  - 'amazonaws.com'
+  - 'aws.dev'
+  - 'windows.net'
+  - 'preprod.haplorrhini.com'
