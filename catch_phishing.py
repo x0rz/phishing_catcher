@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright (c) 2017 @x0rz
 #
 # This program is free software: you can redistribute it and/or modify
@@ -55,6 +55,9 @@ def score_domain(domain):
         if domain.endswith(t):
             score += 20
 
+    if domain in ignore_list:
+        return 0
+
     # Remove initial '*.' for wildcard certificates bug
     if domain.startswith('*.'):
         domain = domain[2:]
@@ -100,6 +103,8 @@ def score_domain(domain):
 
     return score
 
+def is_subdomain(domain, base_domain):
+    return domain == base_domain or domain.endswith('.' + base_domain)
 
 def callback(message, context):
     """Callback handler for certstream events."""
@@ -110,8 +115,14 @@ def callback(message, context):
         all_domains = message['data']['leaf_cert']['all_domains']
 
         for domain in all_domains:
+            domain_lower = domain.lower()
+
+            # Skip domains or subdomains in the ignore list
+            if any(is_subdomain(domain_lower, ignore_domain) for ignore_domain in ignore_list):
+                continue
+
             pbar.update(1)
-            score = score_domain(domain.lower())
+            score = score_domain(domain_lower)
 
             # If issued from a free CA = more suspicious
             if "Let's Encrypt" == message['data']['leaf_cert']['issuer']['O']:
@@ -140,19 +151,27 @@ def callback(message, context):
 
 
 if __name__ == '__main__':
+    # Load configurations from suspicious.yaml
     with open(suspicious_yaml, 'r') as f:
         suspicious = yaml.safe_load(f)
 
+    # Load ignore list from suspicious.yaml
+    global ignore_list
+    ignore_list = suspicious.get('ignore_domains', [])
+
+    # Load configurations from external.yaml
     with open(external_yaml, 'r') as f:
         external = yaml.safe_load(f)
 
-    if external['override_suspicious.yaml'] is True:
-        suspicious = external
-    else:
-        if external['keywords'] is not None:
+    # Merge configurations from external.yaml if override_suspicious.yaml is False
+    if external.get('override_suspicious.yaml', False) is False:
+        # Update keywords, tlds, and ignore list from external.yaml
+        if external.get('keywords') is not None:
             suspicious['keywords'].update(external['keywords'])
-
-        if external['tlds'] is not None:
+        if external.get('tlds') is not None:
             suspicious['tlds'].update(external['tlds'])
+        if external.get('ignore_domains') is not None:
+            ignore_list.extend(external['ignore_domains'])
 
+    # Start listening for certstream events
     certstream.listen_for_events(callback, url=certstream_url)
