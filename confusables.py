@@ -768,6 +768,7 @@ confusables = {
     u'\uABB6': 'k',
     u'\u049B': 'k',
     u'\u049F': 'k',
+    u'\u1E33': 'k',
     u'\U00010320': 'l',
     u'\U0001E8C7': 'l',
     u'\U0001D7CF': 'l',
@@ -1823,8 +1824,14 @@ confusables = {
 }
 
 def unconfuse(domain):
+    # Correctly handle Punycode domains
     if domain.startswith('xn--'):
-        domain = domain.encode('idna').decode('idna')
+        try:
+            domain = domain.encode('idna').decode('idna')
+        except UnicodeError as e:
+            print(f"Error decoding Punycode domain '{domain}': {e}")
+            return domain  # Return the original domain on error
+
     unconfused = ''
     for i in range(len(domain)):
         if domain[i] in confusables:
@@ -1833,4 +1840,5 @@ def unconfuse(domain):
             unconfused += domain[i]
 
     return unconfused
+
 
