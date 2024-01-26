@@ -28,7 +28,7 @@ certstream_url = 'wss://certstream.calidog.io'
 log_suspicious = os.path.dirname(os.path.realpath(__file__)) + '/suspicious_domains_' + time.strftime("%Y-%m-%d") + '.log'
 suspicious_yaml = os.path.dirname(os.path.realpath(__file__)) + '/suspicious.yaml'
 external_yaml = os.path.dirname(os.path.realpath(__file__)) + '/external.yaml'
-pbar = tqdm.tqdm(desc='certificate_update', unit='domains')
+pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
 def entropy(string):
     """Calculates the Shannon entropy of a string"""
@@ -51,7 +51,7 @@ def score_domain(domain, suspicious_tlds, suspicious_keywords):
         domain = unconfuse(domain)
         words_in_domain = domain_split_regex.split(domain)
 
-        if words_in_domain[0] in ['com', 'net', 'org']:
+        if words_in_domain[0] in ['com', 'net', 'org', 'mil', 'gov']:
             score += 10
 
         for t in suspicious_tlds:
@@ -116,7 +116,7 @@ def callback(message, context):
             elif score >= 65:
                 tqdm.tqdm.write("[+] Potential : {} (score={})".format(colored(domain, attrs=['underline']), score))
 
-            if score >= 75:
+            if score >= 100:
                 with open(log_suspicious, 'a') as f:
                     f.write("{}\n".format(domain))
 

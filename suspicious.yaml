@@ -4,9 +4,9 @@ keywords:
     'log-in': 25
     'sign-in': 25
     'signin': 25
-    'account': 25
+    'account': 30
     'verification': 25
-    'verify': 25
+    'verify': 30
     'webscr': 25
     'password': 25
     'credential': 25
@@ -14,8 +14,8 @@ keywords:
     'activity': 25
     'security': 25
     'update': 25
-    'authentication': 25
-    'authenticate': 25
+    'authentication': 30
+    'authenticate': 30
     'authorize': 25
     'wallet': 25
     'alert': 25
@@ -37,6 +37,9 @@ keywords:
     'online': 10
     'safe': 10
     'form': 10
+    'drive': 15
+    'confirmation': 10
+    'pay': 20
 
 # Apple iCloud
     'appleid': 70
@@ -108,73 +111,167 @@ keywords:
     'alibaba': 60
     'aliexpress': 60
     'leboncoin': 70
+    'ebay': 60
+    'rakuten': 50
 
 # Other
     'netflix': 70
+    'hulu': 50
     'skype': 60
-    'github': 60
-    'onedrive': 60
+    'github': 20
+    'onedrive': 45 #(Added to drive)
     'dropbox': 60
+    'docomo': 60
+    'gitlab': 10
+    'jira': 20
 
 # Miscellaneous & SE tricks
     'cgi-bin': 50
-    '-com.': 20
-    '.net-': 20
-    '.org-': 20
-    '.com-': 20
-    '.net.': 20
-    '.org.': 20
-    '.com.': 20
+    '-com.': 30
+    '.net-': 30
+    '.org-': 30
+    '.com-': 30
+    '.net.': 30
+    '.org.': 30
+    '.com.': 30
     '.gov-': 30
     '.gov.': 30
     '.gouv-': 40
     '-gouv-': 40
     '.gouv.': 40
-    # FR specific
+
+# FR specific
     'suivi': 50
     'laposte': 50
 
 tlds:
-    '.ga':
-    '.gq':
-    '.ml':
-    '.cf':
-    '.tk':
-    '.xyz':
-    '.pw':
-    '.cc':
-    '.club':
-    '.work':
-    '.top':
-    '.support':
+    '.accountant':
+    '.accountants':
+    '.agency':
+    '.airforce':
+    '.army':
+    '.asia':
+    '.band':
     '.bank':
-    '.info':
-    '.study':
-    '.click':
-    '.country':
-    '.stream':
-    '.gdn':
-    '.mom':
-    '.xin':
-    '.kim':
-    '.men':
-    '.loan':
-    '.download':
-    '.racing':
-    '.online':
-    '.center':
-    '.ren':
-    '.gb':
-    '.win':
-    '.review':
-    '.vip':
-    '.party':
-    '.tech':
-    '.science':
+    '.bid':
+    '.bike':
+    '.blackfriday':
+    '.blue':
     '.business':
+    '.cafe':
+    '.cam':
+    '.casa':
+    '.cc':
+    '.center':
+    '.cf':
+    '.christmas':
+    '.click':
+    '.cloud':
+    '.club':
+    '.country':
+    '.creditcard':
+    '.cricket':
+    '.cymru':
+    '.date':
+    '.desi':
+    '.diet':
+    '.download':
+    '.email':
+    '.equipment':
+    '.eus':
+    '.express':
+    '.faith':
+    '.fun':
+    '.futbol':
+    '.ga':
+    '.gb':
+    '.gdn':
+    '.gq':
+    '.help':
+    '.hospital':
+    '.host':
+    '.immo':
+    '.info':
+    '.institute':
+    '.jetzt':
+    '.kim':
+    '.life':
+    '.limited':
+    '.link':
+    '.loan':
+    '.lol':
+    '.ltda':
+    '.men':
+    '.ml':
+    '.mom':
+    '.nagoya':
+    '.navy':
+    '.network':
+    '.one':
+    '.online':
+    '.organic':
+    '.party':
+    '.press':
+    '.promo':
+    '.pub':
+    '.pw':
+    '.racing':
+    '.red':
+    '.reise':
+    '.reisen':
+    '.ren':
+    '.repair':
+    '.review':
+    '.rodeo':
+    '.ryukyu':
+    '.schule':
+    '.science':
+    '.services':
+    '.shop':
+    '.site':
+    '.soccer':
+    '.soy':
+    '.space':
+    '.store':
+    '.stream':
+    '.study':
+    '.support':
+    '.systems':
+    '.tech':
+    '.technology':
+    '.tk':
+    '.today':
+    '.tokyo':
+    '.top':
+    '.trade':
+    '.trading':
+    '.viajes':
+    '.vip':
+    '.webcam':
+    '.website':
+    '.whoswho':
+    '.win':
+    '.work':
+    '.world':
+    '.wtf':
+    '.xin':
+    '.xn--tckwe':
+    '.xyz':
+    '.yokohama':
 
 ignore_domains:
   - 'amazonaws.com'
   - 'aws.dev'
   - 'windows.net'
   - 'preprod.haplorrhini.com'
+  - 'ondemand.com'
+  - 'microsoft.com'
+  - 'amazon.dev'
+  - 'netflix.com'
+  - 'pages.dev'
+  - 'amazonaws.com.cn'
+  - 'appdomain.cloud'
+  - 'insightandsound.co.uk'
+  - 'netflix.net'
+  - 'azure.com'
+  - 'platformsh.site'
