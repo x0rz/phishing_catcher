@@ -33,6 +33,19 @@ external_yaml = os.path.dirname(os.path.realpath(__file__))+'/external.yaml'
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
+def isYamlOverrideRequested():
+    return external['override_suspicious.yaml'] is True
+
+def validateOverridenYaml():
+    if not isYamlOverrideRequested():
+        print("YAML needs to be configured to override in order to validate the overriden YAML file.")
+        return False           
+    return external['keywords'] is not None and external['tlds'] is not None
+
+def isMinScoreSpecified():
+    if isYamlOverrideRequested() and validateOverridenYaml():
+        return True if suspicious['minscore'] is not None else False
+
 def entropy(string):
     """Calculates the Shannon entropy of a string"""
     prob = [ float(string.count(c)) / len(string) for c in dict.fromkeys(list(string)) ]
@@ -117,22 +130,32 @@ def callback(message, context):
             if "Let's Encrypt" == message['data']['leaf_cert']['issuer']['O']:
                 score += 10
 
-            if score >= 100:
-                tqdm.tqdm.write(
+            # if minimal score was specified, show only results in console that match that or above
+            
+            if isMinScoreSpecified():
+                minScore = suspicious['minscore']
+                if score >= minScore:
+                    tqdm.tqdm.write(
                     "[!] Suspicious: "
                     "{} (score={})".format(colored(domain, 'red', attrs=['underline', 'bold']), score))
-            elif score >= 90:
-                tqdm.tqdm.write(
-                    "[!] Suspicious: "
-                    "{} (score={})".format(colored(domain, 'red', attrs=['underline']), score))
-            elif score >= 80:
-                tqdm.tqdm.write(
-                    "[!] Likely    : "
-                    "{} (score={})".format(colored(domain, 'yellow', attrs=['underline']), score))
-            elif score >= 65:
-                tqdm.tqdm.write(
-                    "[+] Potential : "
-                    "{} (score={})".format(colored(domain, attrs=['underline']), score))
+
+            else:
+                if score >= 100:
+                    tqdm.tqdm.write(
+                        "[!] Suspicious: "
+                        "{} (score={})".format(colored(domain, 'red', attrs=['underline', 'bold']), score))
+                elif score >= 90:
+                    tqdm.tqdm.write(
+                        "[!] Suspicious: "
+                        "{} (score={})".format(colored(domain, 'red', attrs=['underline']), score))
+                elif score >= 80:
+                    tqdm.tqdm.write(
+                        "[!] Likely    : "
+                        "{} (score={})".format(colored(domain, 'yellow', attrs=['underline']), score))
+                elif score >= 65:
+                    tqdm.tqdm.write(
+                        "[+] Potential : "
+                        "{} (score={})".format(colored(domain, attrs=['underline']), score))
 
             if score >= 75:
                 with open(log_suspicious, 'a') as f:
@@ -146,13 +169,11 @@ if __name__ == '__main__':
     with open(external_yaml, 'r') as f:
         external = yaml.safe_load(f)
 
-    if external['override_suspicious.yaml'] is True:
-        suspicious = external
+    if isYamlOverrideRequested():
+        if validateOverridenYaml():            
+            suspicious = external
+            certstream.listen_for_events(callback, url=certstream_url)
+        else:
+            print("YAML file is not correctly overriden. Please verify whether you have specified 'keywords' and 'tlds' correctly in the external.yaml file.")
     else:
-        if external['keywords'] is not None:
-            suspicious['keywords'].update(external['keywords'])
-
-        if external['tlds'] is not None:
-            suspicious['tlds'].update(external['tlds'])
-
-    certstream.listen_for_events(callback, url=certstream_url)
+        certstream.listen_for_events(callback, url=certstream_url)    
