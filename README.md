@@ -51,10 +51,14 @@ $ ./catch_phishing.py
 
 ### Phishing catcher in Docker container
 
-If you running MacOs or having a different OS version that would make the installation of phishing_catcher difficult, then having the tool dockerized is one of your options.
+If you running MacOS or having a different OS version that would make the installation of phishing_catcher difficult, then having the tool dockerized is one of your options.
 
-```
-docker build . -t phishing_catcher
+```console
+# From a local checkout:
+$ docker build . -t phishing_catcher
+
+# Directly from the repo on Github:
+$ docker build -t phishing_catcher https://github.com/x0rz/phishing_catcher.git#master
 ```
 ![container](https://i.imgur.com/nEo13PH.jpg)
 
