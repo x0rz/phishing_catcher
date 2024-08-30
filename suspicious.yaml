@@ -1,156 +1,395 @@
+# Update of keywords and TLDs used by phishing campaigns and malicious activities in 2024
+# Score adjustment
+# https://www.bleepingcomputer.com/news/security/these-are-the-top-level-domains-threat-actors-like-the-most/
+# https://www.spamhaus.org/reputation-statistics/cctlds/domains/
+
 keywords:
 # Generic suspicious
-    'login': 25
-    'log-in': 25
-    'sign-in': 25
-    'signin': 25
-    'account': 25
-    'verification': 25
-    'verify': 25
-    'webscr': 25
-    'password': 25
-    'credential': 25
-    'support': 25
-    'activity': 25
-    'security': 25
-    'update': 25
-    'authentication': 25
-    'authenticate': 25
-    'authorize': 25
-    'wallet': 25
-    'alert': 25
-    'purchase': 25
-    'transaction': 25
-    'recover': 25
-    'unlock': 25
-    'confirm': 20
-    'live': 15
-    'office': 15
-    'service': 15
-    'manage': 15
-    'portal': 15
-    'invoice': 15
-    'secure': 10
-    'customer': 10
-    'client': 10
-    'bill': 10
-    'online': 10
-    'safe': 10
-    'form': 10
+    'login': 40
+    'log-in': 40
+    'sign-in': 40
+    'signin': 40
+    'account': 40
+    'verification': 40
+    'verify': 40
+    'link': 40
+    'password': 40
+    'credential': 40
+    'authentication': 40
+    'authenticate': 40
+    'authorize': 40
+    'wallet': 40
+    'alert': 40
+    'purchase': 40
+    'transaction': 40
+    'recover': 40
+    'unlock': 40
+    'confirm': 40
+    'live': 30
+    'office': 20
+    'service': 20
+    'manage': 20
+    'support': 40
+    'activity': 40
+    'security': 40
+    'secure': 30
+    'update': 40
+    'portal': 30
+    'invoice': 30
+    'customer': 30
+    'client': 30
+    'bill': 30
+    'online': 30
+    'safe': 30
+    'form': 30
+    'host': 40
+    'intra': 40
+    'intranet': 40
+    'private': 40
+    'internal': 40
+    'admin': 40
+    'sysadmin': 40
+    'reset': 45
+    'expired': 45
+    'validation': 45
+    'access': 45
+    'limited': 40
+    'urgent': 50
+    'suspension': 50
+    'restricted': 45
+    'important': 40
+    'action-required': 50
 
 # Apple iCloud
-    'appleid': 70
-    'icloud': 60
-    'iforgot': 60
-    'itunes': 50
+    'appleid': 65
+    'icloud': 55
+    'iforgot': 55
+    'itunes': 45
     'apple': 30
+    'iphone': 40
+    'macbook': 40
+    'imessage': 50
 
 # Email
-    'office365': 50
-    'microsoft': 60
+    'office365': 60
+    'microsoft': 55
     'windows': 30
-    'protonmail': 70
-    'tutanota': 60
+    'protonmail': 60
+    'tutanota': 55
     'hotmail': 60
-    'gmail': 70
+    'gmail': 60
     'outlook': 60
     'yahoo': 60
-    'google': 60
+    'google': 55
     'yandex': 60
+    'zimbra': 60
+    'webmail': 60
+    'mail': 40
+    'exchange': 60
+    'owa': 60
 
 # Social Media
-    'twitter': 60
-    'facebook': 60
-    'tumblr': 60
-    'reddit': 60
+    'twitter': 55
+    'facebook': 55
+    'tumblr': 55
+    'reddit': 55
     'youtube': 40 # some false positives
-    'linkedin': 60
-    'instagram': 60
-    'flickr': 60
-    'whatsapp': 60
+    'linkedin': 55
+    'instagram': 55
+    'flickr': 55
+    'whatsapp': 55
+    'tiktok': 55
+    'snapchat': 55
+    'wechat': 55
+    'telegram': 55
+    'signal': 55
+    'mastodon': 55
+    'threads': 55
+    'clubhouse': 55
+    'discord': 65
 
 # Cryptocurrency
-    'localbitcoin': 70
-    'poloniex': 60
-    'coinhive': 70
-    'bithumb': 60
-    'kraken': 50 # some false positives
-    'bitstamp': 60
-    'bittrex': 60
-    'blockchain': 70
-    'bitflyer': 60
-    'coinbase': 60
-    'hitbtc': 60
-    'lakebtc': 60
-    'bitfinex': 60
-    'bitconnect': 60
-    'coinsbank': 60
+    'localbitcoin': 65
+    'poloniex': 55
+    'coinhive': 65
+    'bithumb': 55
+    'kraken': 45 # some false positives
+    'bitstamp': 55
+    'bittrex': 55
+    'blockchain': 65
+    'bitflyer': 55
+    'coinbase': 55
+    'hitbtc': 55
+    'lakebtc': 55
+    'bitfinex': 55
+    'bitconnect': 55
+    'coinsbank': 55
+    'binance': 65
+    'crypto': 65
+    'ethereum': 60
+    'dogecoin': 60
+    'bitcoin': 60
+    'tether': 60
+    'nft': 55
+    'defi': 60
 
 # Bank/money
-    'paypal': 70
-    'moneygram': 60
-    'westernunion': 60
-    'bankofamerica': 60
-    'wellsfargo': 60
-    'citigroup': 60
-    'santander': 60
-    'morganstanley': 60
-    'barclays': 50
-    'hsbc': 50
-    'scottrade': 60
-    'ameritrade': 60
-    'merilledge': 60
-    'bank': 15
+    'paypal': 65
+    'webscr': 55
+    'moneygram': 55
+    'westernunion': 55
+    'bankofamerica': 55
+    'wellsfargo': 55
+    'citigroup': 55
+    'santander': 55
+    'morganstanley': 55
+    'barclays': 45
+    'hsbc': 45
+    'scottrade': 55
+    'ameritrade': 55
+    'merilledge': 55
+    'bank': 65
+    'chase': 65
+    'transfer': 65
+    'payment': 65
+    'iban': 60
+    'swift': 60
+    'sepa': 60
+    'wire': 55
+    'creditcard': 60
+    'debitcard': 60
+
+# Adult
+    'sexe': 45
+    'porno': 45
+    'porn': 45
+    'meetic': 45
+    'tinder': 45
+    'love': 30
+    'chat-sex': 45
+    'cam': 45
+    'cannabis': 45
+    'onlyfans': 55
+    'dating': 40
+    'adult': 45
 
 # Ecommerce
-    'amazon': 60
-    'overstock': 60
-    'alibaba': 60
-    'aliexpress': 60
-    'leboncoin': 70
+    'amazon': 55
+    'overstock': 55
+    'alibaba': 55
+    'aliexpress': 55
+    'leboncoin': 65
+    'ebay': 65
+    'shopify': 65
+    'etsy': 65
+    'wish': 55
+    'walmart': 55
+    'target': 55
+    'bestbuy': 55
+
+# File Transfer Services
+    'mega': 65
+    'dropbox': 65
+    'onedrive': 65
+    'googledrive': 65
+    'mediafire': 65
+    'wetransfer': 65
+    'sendspace': 60
+    'box': 55
 
 # Other
-    'netflix': 70
-    'skype': 60
-    'github': 60
-    'onedrive': 60
-    'dropbox': 60
+    'netflix': 65
+    'skype': 55
+    'github': 55
+    'gitlab': 65
+    'zoom': 65
+    'slack': 65
+    'proxy': 65
+    'proxies': 65
+    'torrent': 65
+    'wordpress': 75
+    'vpn': 60
+    'remote': 55
+    'cloud': 50
+    'streaming': 50
 
 # Miscellaneous & SE tricks
-    'cgi-bin': 50
-    '-com.': 20
-    '.net-': 20
-    '.org-': 20
-    '.com-': 20
-    '.net.': 20
-    '.org.': 20
-    '.com.': 20
-    '.gov-': 30
-    '.gov.': 30
-    '.gouv-': 40
-    '-gouv-': 40
-    '.gouv.': 40
-    # FR specific
-    'suivi': 50
-    'laposte': 50
+    'cgi-bin': 45
+    '.net': 30
+    '.net-': 30
+    '.net.': 30
+    '.org': 30
+    '.org-': 30
+    '.org.': 30
+    '.com': 30
+    '-com.': 30
+    '.com-': 30
+    '.com.': 30
+    '.gov-': 40
+    '.gov.': 40
+    '.gouv-': 45
+    '-gouv-': 45
+    '.gouv.': 45
+    'covid': 55
+    'vaccine': 55
+    'pandemic': 50
+    'emergency': 55
 
+# FR specific
+    'suivi': 65
+    'laposte': 55
+    'impots': 65
+    'urssaf': 65
+    'secu': 65
+    'ameli': 65
+    'doctolib': 65
+    'caf': 65
+    'pole-emploi': 65
+    'france-travail': 65
+    'assistance-publique': 65
+    'hopital': 65
+    'chu': 65
+    'paris': 65
+    'mairie': 65
+    'service-public': 65
+    'tresor-public': 65
+    'cpam': 65
+    'sncf': 55
+    'crous': 60
+
+# US specific
+    'irs': 65
+    'usps': 65
+    'dhl': 65
+    'ssa': 65
+    'uscis': 65
+    'medicare': 65
+    'medicaid': 65
+    'healthcare': 65
+    'census': 65
+    'us-gov': 65
+    'tax': 65
+    'federal': 65
+    'state': 65
+    'gov': 65
+    'fbi': 70
+    'cia': 70
+    'nsa': 70
+    'homeland': 65
+    'dmv': 60
+
+# Europe specific
+    'nhs': 65
+    'gov-uk': 65
+    'deutsche-post': 65
+    'ups': 65
+    'dhl-de': 65
+    'poste-italiane': 65
+    'gov-eu': 65
+    'europa': 65
+    'health': 65
+    'eu': 65
+    'gov-de': 65
+    'gov-fr': 65
+    'gov-es': 65
+    'gov-it': 65
+    'bundestag': 60
+    'bundesrat': 60
+    'senat': 60
+    'parlament': 60
+
+# Emerging threats
+    'ai': 50
+    'chatgpt': 60
+    'openai': 60
+    'metaverse': 55
+    '5g': 50
+    'quantum': 55
+    'deepfake': 65
+    'biometric': 60
+    'fintech': 55
+    'ico': 60
+    'airdrop': 60
+    'smart-contract': 60
+
+# Sports (France, Europe, World)
+    'fff': 55  # French Football Federation
+    'uefa': 55  # Union of European Football Associations
+    'fifa': 55  # Fédération Internationale de Football Association
+    'psg': 55  # Paris Saint-Germain
+    'worldcup': 60
+    'euro2024': 55
+    'championsleague': 60
+    'europaleague': 55
+    'premierleague': 50
+    'laliga': 50
+    'bundesliga': 50
+    'seriea': 50
+    'rugby': 50
+    'olympics': 60
+    'jeux-olympiques': 60
+    'ioc': 55   # International Olympic Committee
+    'cio': 55   # Comité International Olympique
+    'tour-de-france': 60
+    'roland-garros': 60
+    'wimbledon': 60
+    'nba': 55  # National Basketball Association
+    'nfl': 55  # National Football League
+    'mlb': 55  # Major League Baseball
+    'ticket': 60
+    'billet': 60
+    'football': 55
+    'soccer': 55
+    'rugby': 55
+    'tennis': 55
+    'basketball': 55
+    'handball': 55
+    'volleyball': 55
+    'cycling': 55
+    'athletics': 55
+    'swimming': 55
+    'judo': 55
+    'boxing': 55
+    'hockey': 55
+    'golf': 55
+    'ski': 55
+    'formula1': 55
+    'motorsport': 55
+
+# Telecom and Internet Operators
+    # France
+    'orange': 60
+    'sfr': 60
+    'bouygues': 60
+    'free': 60
+    'sosh': 55
+    # Europe
+    'vodafone': 60
+    'deutsche-telekom': 60
+    'telefonica': 60
+    'telecom-italia': 60
+    # World
+    'att': 60
+    'verizon': 60
+    't-mobile': 60
+
+# Energy Providers
+    # France
+    'edf': 60
+    'engie': 60
+    'total-energies': 60
+    'direct-energie': 55
+    'eni': 55
+    'eon': 60  # Europe
+    'shell': 60  # World
+
+
+# Under ".xyz" => Widely used and/or used in malicious activities
 tlds:
-    '.ga':
-    '.gq':
-    '.ml':
-    '.cf':
-    '.tk':
-    '.xyz':
-    '.pw':
     '.cc':
-    '.club':
-    '.work':
-    '.top':
-    '.support':
     '.bank':
     '.info':
     '.study':
-    '.click':
     '.country':
     '.stream':
     '.gdn':
@@ -158,17 +397,109 @@ tlds:
     '.xin':
     '.kim':
     '.men':
-    '.loan':
     '.download':
     '.racing':
-    '.online':
     '.center':
     '.ren':
     '.gb':
     '.win':
     '.review':
-    '.vip':
-    '.party':
     '.tech':
     '.science':
     '.business':
+    '.fun':
+    '.space':
+    '.website':
+    '.site':
+    '.store':
+    '.pro':
+    '.biz':
+    '.trade':
+    '.bid':
+    '.date':
+    '.faith':
+    '.xyz':  
+    '.top':
+    '.club':
+    '.live':
+    '.shop':
+    '.vip':
+    '.online':
+    '.work':
+    '.click':
+    '.ru':
+    '.cf': 
+    '.ga':
+    '.gq':
+    '.ml':
+    '.tk': 
+    '.fit': 
+    '.loan':
+    '.support':
+    '.cam':
+    '.party':
+    '.buzz':
+    '.monster':
+    '.icu':
+    '.cyou':
+    '.accountant':
+    '.su':
+    '.pl':
+    '.pw':
+    '.io':
+    '.app':
+    '.co':
+    '.me':
+    '.ai':
+    '.dev':
+    '.cloud':
+    '.network':
+    '.life':
+    '.world':
+    '.today':
+    '.digital':
+    '.best':
+    '.ltd':
+    '.services':
+    '.host':
+    '.solutions':
+    '.agency':
+    '.group':
+    '.team':
+    '.company':
+    '.link':
+    '.zone':
+    '.capital':
+    '.directory':
+    '.wtf':
+    '.codes':
+    '.systems':
+    '.market':
+    '.software':
+    '.tools':
+    '.global':
+    '.media':
+    '.studio':
+    '.marketing':
+    '.finance':
+    '.ventures':
+    '.exchange':
+    '.technology':
+    '.foundation':
+    '.consulting':
+    '.partners':
+    '.holdings':
+    '.enterprises':
+    '.industries':
+    '.investments':
+    '.institute':
+    '.international':
+    '.management':
+    '.education':
+    '.community':
+    '.expert':
+    '.academy':
+    '.energy':
+    '.limited':
+    '.social':
+    '.fund':

@@ -1,0 +1,16 @@
+Let's Encrypt
+ZeroSSL
+Sectigo Limited
+COMODO CA Limited
+GoGetSSL
+Buypass AS-983163327
+GoDaddy.com, Inc.
+JoySSL Limited
+Starfield Technologies, Inc.
+TrustAsia Technologies, Inc.
+cPanel, Inc.
+The USERTRUST Network
+WoTrus CA Limited
+ZoTrus Technology Limited
+Gandi
+None

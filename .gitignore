@@ -1,2 +1,4 @@
 *.pyc
 suspicious_domains.log
+venv_phishing_catcher/
+__pycache__
